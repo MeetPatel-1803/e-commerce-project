@@ -1,0 +1,17 @@
+{
+	"productCreatedSuccessfully": "Product Created Successfully",
+	"authorizationError": "authorizationError",
+	"invalidToken": "invalidToken",
+	"internalError": "internalError",
+	"accessDenied": "accessDenied",
+	"addProductValidationTagsBase": "addProductValidationTagsBase",
+	"addProductValidationCategoryRequired": "addProductValidationCategoryRequired",
+	"addProductValidationCategoryUnknown": "addProductValidationCategoryUnknown",
+	"productAlreadyExist": "Product already exist.",
+	"addProductValidationNameRequired": "addProductValidationNameRequired",
+	"ProductNotFound": "ProductNotFound",
+	"productUpdatedSuccessfully": "productUpdatedSuccessfully",
+	"productFetchedSuccessfully": "productFetchedSuccessfully",
+	"productDeletedSuccessfully": "productDeletedSuccessfully",
+	"productNotFound": "productNotFound"
+}
