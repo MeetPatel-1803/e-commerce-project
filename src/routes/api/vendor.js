@@ -11,6 +11,11 @@ import {
   deleteProduct,
   getAllProducts
 } from '../../controllers/vendorControllers/productController.js';
+import {
+  addProductReview,
+  deleteProductReviews,
+  getAllProductReviews
+} from '../../controllers/userControllers/reviewController.js';
 
 config();
 
@@ -50,7 +55,13 @@ router.use('/', userAuthRole([USER_ROLE.VENDOR]));
 
 // ----------------------------------------------------------------------------------
 
+// Product ADD/EDIT & DELETE
 router.post('/product', addEditProduct);
 router.get('/product', getAllProducts);
 router.delete('/product', deleteProduct);
+
+// Product reviews
+router.post('/:productId/review', addProductReview);
+router.get('/:productId/review', getAllProductReviews);
+router.delete('/:productId/review/:reviewId', deleteProductReviews);
 export default router;

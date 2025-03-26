@@ -38,3 +38,23 @@ export const deleteProductValidation = (req, res, callback) => {
   }
   return callback(true);
 };
+
+export const getAllProductValidation = (req, res, callback) => {
+  const schema = Joi.object({
+    search: Joi.string().trim().optional(),
+    category: Joi.string().insensitive().trim().lowercase(),
+    minPrice: Joi.number().min(0).optional(),
+    maxPrice: Joi.number().min(0).optional(),
+    tags: Joi.string().optional(), // We will split it later in the controller
+    sortBy: Joi.string().valid('price', 'name', 'createdAt').optional(),
+    order: Joi.string().valid('asc', 'desc').optional()
+  });
+  const { error } = schema.validate(req);
+  if (error) {
+    return validationErrorResponseData(
+      res,
+      res.__(validationMessageKey('getAllProductValidation', error))
+    );
+  }
+  return callback(true);
+};

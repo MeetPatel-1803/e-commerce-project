@@ -6,7 +6,8 @@ import {
 } from '../../utils/response.js';
 import {
   addEditProductValidation,
-  deleteProductValidation
+  deleteProductValidation,
+  getAllProductValidation
 } from '../../validations/productValidations.js';
 import { Category, Product } from '../../models/index.js';
 import { META_CODE, RESPONSE_CODE } from '../../utils/constants.js';
@@ -109,16 +110,53 @@ export const addEditProduct = async (req, res) => {
  */
 export const getAllProducts = async (req, res) => {
   try {
-    const productDetails = await Product.find()
-      .populate('category', 'name -_id')
-      .populate('vendor', 'name -_id')
-      .exec();
-    return successResponseData(
-      res,
-      productDetails,
-      META_CODE.SUCCESS,
-      res.__('productFetchedSuccessfully')
-    );
+    const reqParam = req.query;
+    getAllProductValidation(reqParam, res, async (validate) => {
+      // let { search, category, minPrice, maxPrice, tags, sortBy, order } = req.query;
+
+      const filter = {};
+
+      // 🔍 Search by name (partial match, case-insensitive)
+      if (reqParam.search) {
+        filter.name = { $regex: reqParam.search, $options: 'i' };
+      }
+
+      // 📂 Filter by category
+      if (reqParam.category) {
+        filter.category = reqParam.category;
+      }
+
+      // 💰 Filter by price range
+      if (reqParam.minPrice || reqParam.maxPrice) {
+        filter.price = {};
+        if (reqParam.minPrice) filter.price.$gte = parseFloat(reqParam.minPrice);
+        if (reqParam.maxPrice) filter.price.$lte = parseFloat(reqParam.maxPrice);
+      }
+
+      // 🏷️ Filter by tags
+      if (reqParam.tags) {
+        filter.tags = { $in: reqParam.tags.split(',') }; // Convert tags into an array
+      }
+
+      // 📌 Sorting
+      const sortOptions = {};
+      if (reqParam.sortBy) {
+        sortOptions[reqParam.sortBy] = reqParam.order === 'desc' ? -1 : 1;
+      }
+
+      // Fetch products with filters
+      const products = await Product.find(filter).sort(sortOptions);
+      // const productDetails = await Product.find()
+      //   .populate('category', 'name -_id')
+      //   .populate('vendor', 'name -_id')
+      //   .exec();
+      return successResponseData(
+        res,
+        products,
+        META_CODE.SUCCESS,
+        res.__('productFetchedSuccessfully')
+      );
+    });
   } catch (err) {
     return internalServerErrorResponse(res);
   }

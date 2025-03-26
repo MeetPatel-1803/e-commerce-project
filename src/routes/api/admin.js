@@ -6,6 +6,11 @@ import { config } from 'dotenv';
 import { userAuthToken } from '../../middlewares/authUser.js';
 import { userAuthRole } from '../../middlewares/authUserRole.js';
 import { USER_ROLE } from '../../utils/constants.js';
+import {
+  addProductReview,
+  deleteProductReviews,
+  getAllProductReviews
+} from '../../controllers/userControllers/reviewController.js';
 
 config();
 
@@ -41,5 +46,11 @@ router.get(
 
 router.use('/', userAuthToken);
 router.use('/admin', userAuthRole([USER_ROLE.ADMIN]));
+
+// ------------------------------------------------------------------------
+
+router.post('/:productId/review', addProductReview);
+router.get('/:productId/review', getAllProductReviews);
+router.delete('/:productId/review/:reviewId', deleteProductReviews);
 
 export default router;

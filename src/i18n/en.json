@@ -13,5 +13,8 @@
 	"productUpdatedSuccessfully": "productUpdatedSuccessfully",
 	"productFetchedSuccessfully": "productFetchedSuccessfully",
 	"productDeletedSuccessfully": "productDeletedSuccessfully",
-	"productNotFound": "productNotFound"
+	"productNotFound": "productNotFound",
+	"getAllProductValidationMinpriceMin": "getAllProductValidationMinpriceMin",
+	"getAllProductValidationSortbyOnly": "getAllProductValidationSortbyOnly",
+	"getAllProductValidationOrderOnly": "getAllProductValidationOrderOnly"
 }

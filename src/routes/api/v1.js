@@ -4,6 +4,17 @@ import jwt from 'jsonwebtoken';
 import { setupGoogleStrategy } from '../../middlewares/passport.js';
 import { config } from 'dotenv';
 import { userAuthToken } from '../../middlewares/authUser.js';
+import {
+  addProductReview,
+  deleteProductReviews,
+  getAllProductReviews
+} from '../../controllers/userControllers/reviewController.js';
+import {
+  addItemToCart,
+  deleteCartItem,
+  getUserCart,
+  updateCartItem
+} from '../../controllers/userControllers/cartController.js';
 
 config();
 
@@ -40,5 +51,14 @@ router.get(
 
 router.use('/', userAuthToken);
 // ----------------------------------------------------------------------------------
+
+router.post('/:productId/review', addProductReview);
+router.get('/:productId/review', getAllProductReviews);
+router.delete('/:productId/review/:reviewId', deleteProductReviews);
+
+router.post('/', addItemToCart);
+router.get('/', getUserCart);
+router.post('/', updateCartItem);
+router.delete('/:productId', deleteCartItem);
 
 export default router;
