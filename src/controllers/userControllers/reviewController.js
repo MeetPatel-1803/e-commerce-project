@@ -72,7 +72,7 @@ export const getAllProductReviews = async (req, res) => {
 };
 
 /**
- * @route DELETE /api/products/:productId/review/:reviewId
+ * @route DELETE /api/products/:productId/review/:reviewId.
  * @description Delete a review (Only the user who posted it).
  */
 export const deleteProductReviews = async (req, res) => {
