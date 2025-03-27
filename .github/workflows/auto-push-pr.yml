@@ -3,7 +3,7 @@ name: Auto Push and Create Pull Request
 on:
   push:
     branches:
-      - Development  # Change this to your working branch if necessary.
+      - feat/setup_cicd  # Change this to your working branch if necessary.
 
 jobs:
   push:
