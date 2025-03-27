@@ -257,3 +257,15 @@ export const PRODUCT_CATEGORIES = {
     ]
   }
 };
+
+export const ORDER_STATUS = {
+  PROCESSING: 'Processing',
+  SHIPPED: 'Shipped',
+  DELIVERED: 'Delivered',
+  CANCELLED: 'Cancelled'
+};
+
+export const PAYMENT_STATUS = {
+  PENDING: 'Pending',
+  PAID: 'Paid'
+};
