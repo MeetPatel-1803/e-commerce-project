@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { ORDER_STATUS, PAYMENT_STATUS } from '../utils/constants.js';
 
 const orderSchema = new mongoose.Schema(
   {
@@ -10,11 +11,15 @@ const orderSchema = new mongoose.Schema(
       }
     ],
     totalAmount: { type: Number, required: true },
-    paymentStatus: { type: String, enum: ['Pending', 'Paid'], default: 'Pending' },
+    paymentStatus: {
+      type: String,
+      enum: Object.values(PAYMENT_STATUS),
+      default: PAYMENT_STATUS.PENDING
+    },
     orderStatus: {
       type: String,
-      enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
-      default: 'Processing'
+      enum: Object.values(ORDER_STATUS),
+      default: ORDER_STATUS.PROCESSING
     }
   },
   { timestamps: true }
